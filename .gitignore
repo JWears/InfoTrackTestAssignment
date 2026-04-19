@@ -1,0 +1,32 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# Angular / Node
+**/node_modules/
+**/dist/
+**/.angular/
+**/tmp/
+**/out-tsc/
+**/bazel-out/
+
+# IDEs and editors
+**/.idea/
+**/.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.editorconfig
+*.prettierrc
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Misc
+**/coverage/
+.DS_Store
+Thumbs.db
+requirements.md
