@@ -1,6 +1,6 @@
 <div class="report-container">
   <h2 class="report-title">Solicitor Search Results</h2>
-  <p class="report-count">{{ results.length }} results found</p>
+  <p class="report-count">{{ results().length }} results found</p>
 
   <table class="report-table">
     <thead>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (result of results; track result.phone; let i = $index) {
+      @for (result of results(); track result.phone; let i = $index) {
         <tr>
           <td class="rank">{{ i + 1 }}</td>
           <td class="firm-name">{{ result.title }}</td>

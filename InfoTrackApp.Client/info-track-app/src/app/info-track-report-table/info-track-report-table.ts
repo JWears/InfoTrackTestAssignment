@@ -1,15 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import mockData from './MockData.json';
-
-interface SolicitorResult {
-  title: string;
-  address: string | null;
-  phone: string | null;
-  website: string | null;
-  rating: number | null;
-  numberOfReviews: number | null;
-}
+import { SolicitorSearchService } from '../services/solicitor-search.service';
 
 @Component({
   selector: 'app-info-track-report-table',
@@ -18,5 +9,10 @@ interface SolicitorResult {
   styleUrl: './info-track-report-table.less',
 })
 export class InfoTrackReportTable {
-  results: SolicitorResult[] = mockData;
+  constructor(private readonly _solicitorSearchService: SolicitorSearchService) {
+  }
+  public get results()
+  {
+    return this._solicitorSearchService.results;
+  }
 }
