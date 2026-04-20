@@ -1,0 +1,11 @@
+<select [(ngModel)]="selectedPracticeArea" >
+  @for (practiceArea of practiceAreas; track practiceArea) {
+    <option [value]="practiceArea">{{ practiceArea }}</option>
+  }
+  </select>
+<select [(ngModel)]="selectedLocation">
+  @for (location of locations; track location) {
+    <option [value]="location">{{ location }}</option>
+  }1
+</select>
+<button class="search-button">Search</button>

@@ -1,3 +1,8 @@
+using InfoTrackApp.API.Models;
+using InfoTrackApp.API.Services.Orchestrator;
+using InfoTrackApp.API.Services.Parsers;
+using InfoTrackApp.API.Services.Scrapers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +16,17 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
+
+builder.Services.AddHttpClient<ISolicitorScraperService, SolicitorScraperService>(client =>
+{
+    client.BaseAddress = new Uri("https://www.solicitors.com/");
+    client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+});
+
+builder.Services.AddTransient<IHtmlParserService<SolicitorDto>, SolicitorHtmlParserService>();
+builder.Services.AddTransient<IOrchestrationService, OrchestrationService>();
+
+builder.Services.AddSingleton<IHtmlParserFactory, HtmlParserFactory>();
 
 var app = builder.Build();
 
@@ -30,12 +46,5 @@ using var client = new HttpClient();
 
 // Add a User-Agent header so the site doesn't think you're a bot and block you
 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
-
-string url = "https://www.solicitors.com/conveyancing+london.html";
-string html = await client.GetStringAsync(url);
-
-Console.WriteLine(html);
-
-app.MapGet("GetLegalClientsLondon", () => html);
 
 app.Run();

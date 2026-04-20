@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+const LOCATIONS = [
+  'London', 'Birmingham', 'Leeds', 'Manchester',
+  'Sheffield', 'Bradford', 'Liverpool', 'Bristol',
+] as const;
+
+const PRACTICE_AREA = ['Conveyancing'];
+
+@Component({
+  selector: 'app-info-track-search-box',
+  imports: [FormsModule],
+  templateUrl: './info-track-search-box.html',
+  styleUrl: './info-track-search-box.less',
+})
+export class InfoTrackSearchBox {
+  readonly locations = LOCATIONS;
+  readonly practiceAreas = PRACTICE_AREA;
+  selectedPracticeArea: string = PRACTICE_AREA[0];
+  selectedLocation: string = LOCATIONS[0];
+}

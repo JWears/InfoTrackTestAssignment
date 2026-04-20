@@ -1,0 +1,42 @@
+<div class="report-container">
+  <h1 class="report-title">Solicitor Search Results</h1>
+  <p class="report-count">{{ results.length }} results found</p>
+
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Firm</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Rating</th>
+        <th>Reviews</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (result of results; track result.phone; let i = $index) {
+        <tr>
+          <td class="rank">{{ i + 1 }}</td>
+          <td class="firm-name">{{ result.title }}</td>
+          <td class="phone">{{ result.phone ?? '—' }}</td>
+          <td class="address">{{ result.address ?? '—' }}</td>
+          <td class="rating">
+            @if (result.rating !== null) {
+              <span class="rating-value">{{ result.rating }}</span>
+              <span class="rating-star">★</span>
+            } @else {
+              <span class="no-data">—</span>
+            }
+          </td>
+          <td class="reviews">
+            @if (result.numberOfReviews !== null) {
+              {{ result.numberOfReviews | number }}
+            } @else {
+              <span class="no-data">—</span>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
