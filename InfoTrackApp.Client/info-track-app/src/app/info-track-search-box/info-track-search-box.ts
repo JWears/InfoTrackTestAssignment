@@ -25,7 +25,7 @@ export class InfoTrackSearchBox {
   }
 
   onSearch(){
-    const selectedPracticeAreaValue = his.selectedPracticeArea.toLowerCase();
+    const selectedPracticeAreaValue = this.selectedPracticeArea.toLowerCase();
     const selectedLocationValue = this.selectedLocation.toLowerCase();
     this._solicitorSearchService.search(selectedPracticeAreaValue, selectedLocationValue);
   }
