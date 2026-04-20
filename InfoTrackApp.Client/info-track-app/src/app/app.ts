@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
-import {InfoTrackReportPage} from './info-track-report-page/info-track-report-page';
+import { InfoTrackReportTable } from './info-track-report-table/info-track-report-table';
+import { InfoTrackSearchBox } from './info-track-search-box/info-track-search-box';
 
 @Component({
   selector: 'app-root',
-  imports: [InfoTrackReportPage],
+  imports: [InfoTrackReportTable, InfoTrackSearchBox],
   templateUrl: './app.html',
   styleUrl: './app.less'
 })
