@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InfoTrackSearchBox } from './info-track-search-box';
+import {InfoTrackSearchBox} from './info-track-search-box';
 
 describe('InfoTrackSearchBox', () => {
   let component: InfoTrackSearchBox;

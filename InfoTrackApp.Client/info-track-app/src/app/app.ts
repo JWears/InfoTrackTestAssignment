@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { InfoTrackReportTable } from './info-track-report-table/info-track-report-table';
-import { InfoTrackSearchBox } from './info-track-search-box/info-track-search-box';
+import {Component, signal} from '@angular/core';
+import {InfoTrackReportTable} from './info-track-report-table/info-track-report-table';
+import {InfoTrackSearchBox} from './info-track-search-box/info-track-search-box';
 
 @Component({
   selector: 'app-root',

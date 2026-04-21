@@ -8,6 +8,11 @@ public class SolicitorRecordRepository(AppDbContext dbContext) : ISolicitorRecor
 {
     public async Task SaveSearchResultsAsync(string practiceArea, string location, List<SolicitorDto> results)
     {
+        ArgumentNullException.ThrowIfNull(practiceArea);
+        ArgumentNullException.ThrowIfNull(location);
+        ArgumentNullException.ThrowIfNull(results);
+        if (results.Count == 0) return;
+        
         var records = results.Select(dto => new SearchRecord
         {
             PracticeArea = practiceArea,

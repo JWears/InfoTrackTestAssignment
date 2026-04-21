@@ -10,9 +10,9 @@ public class SolicitorSearchController(IOrchestrationService orchestrationServic
 {
     [HttpGet("GetSolicitorData")]
     [Produces("application/json")]
-    public async Task<List<SolicitorDto>> GetSolicitorData([FromQuery]string practiceArea, [FromQuery] string location)
+    public async Task<List<SolicitorDto>> GetSolicitorData([FromQuery] string practiceArea, [FromQuery] string location)
     {
         var result = await orchestrationService.GetSolicitorDetails(practiceArea, location);
         return result;
-    } 
+    }
 }

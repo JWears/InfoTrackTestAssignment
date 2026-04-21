@@ -22,6 +22,11 @@ public class OrchestrationService(
             return MapCachedResults(matchingRecords);
 
         var html = await solicitorScraperService.GetSolicitorDetails(practiceArea, location);
+        if (string.IsNullOrEmpty(html))
+        {
+            return new List<SolicitorDto>();
+        }
+
         var parser = parserFactory.GetParser<SolicitorDto>();
         var dto = parser.ParseHtml(html);
 
@@ -31,5 +36,6 @@ public class OrchestrationService(
     }
 
     private static List<SolicitorDto> MapCachedResults(List<SearchRecord> records) =>
-        records.Select(searchRecord => new SolicitorDto(searchRecord.Title, searchRecord.Address, searchRecord.Phone, searchRecord.Website, searchRecord.Rating, searchRecord.NumberOfReviews)).ToList();
+        records.Select(searchRecord => new SolicitorDto(searchRecord.Title, searchRecord.Address, searchRecord.Phone,
+            searchRecord.Website, searchRecord.Rating, searchRecord.NumberOfReviews)).ToList();
 }

@@ -6,15 +6,11 @@ public class SolicitorScraperService(HttpClient httpClient) : ISolicitorScraperS
 
     public async Task<string> GetSolicitorDetails(string practiceArea, string location)
     {
-        if (string.IsNullOrEmpty(practiceArea))
+        if (string.IsNullOrEmpty(practiceArea) || string.IsNullOrEmpty(location))
         {
             return string.Empty;
         }
 
-        if (string.IsNullOrEmpty(location))
-        {
-            return string.Empty;
-        }
         var queryString = BuildQueryString(practiceArea, location);
         try
         {
@@ -26,7 +22,6 @@ public class SolicitorScraperService(HttpClient httpClient) : ISolicitorScraperS
         {
             return e.Message;
         }
-        
     }
 
     private static string BuildQueryString(string practiceArea, string location)

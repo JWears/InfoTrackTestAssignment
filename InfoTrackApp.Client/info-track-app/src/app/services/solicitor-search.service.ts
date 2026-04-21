@@ -1,9 +1,9 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Solicitor } from '../models/solicitor';
+import {Injectable, inject, signal} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Solicitor} from '../models/solicitor';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class SolicitorSearchService {
   private http = inject(HttpClient);
 
@@ -20,7 +20,7 @@ export class SolicitorSearchService {
       .set('location', location);
 
     this.http
-      .get<Solicitor[]>(`${environment.apiBaseUrl}/SolicitorSearch/GetSolicitorData`, { params })
+      .get<Solicitor[]>(`${environment.apiBaseUrl}/SolicitorSearch/GetSolicitorData`, {params})
       .subscribe({
         next: (results) => {
           this.results.set(results);

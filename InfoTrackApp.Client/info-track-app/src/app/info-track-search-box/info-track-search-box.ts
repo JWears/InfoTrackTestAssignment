@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SolicitorSearchService } from '../services/solicitor-search.service';
-import { Signal } from '@angular/core';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {SolicitorSearchService} from '../services/solicitor-search.service';
+import {Signal} from '@angular/core';
 
 const LOCATIONS = [
   'London', 'Birmingham', 'Leeds', 'Manchester',
@@ -34,7 +34,7 @@ export class InfoTrackSearchBox {
   }
 
 
-  onSearch(){
+  onSearch() {
     const selectedPracticeAreaValue = this.selectedPracticeArea.toLowerCase();
     const selectedLocationValue = this.selectedLocation.toLowerCase();
     this._solicitorSearchService.search(selectedPracticeAreaValue, selectedLocationValue);

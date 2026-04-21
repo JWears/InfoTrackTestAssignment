@@ -4,14 +4,14 @@
 
   <table class="report-table">
     <thead>
-      <tr>
-        <th>#</th>
-        <th>Firm</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th class="sortable" (click)="sortByRating()">Rating</th>
-        <th>Reviews</th>
-      </tr>
+    <tr>
+      <th>#</th>
+      <th>Firm</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th class="sortable" (click)="sortByRating()">Rating</th>
+      <th>Reviews</th>
+    </tr>
     </thead>
     <tbody>
       @for (result of results(); track result.phone; let i = $index) {
