@@ -6,7 +6,7 @@ A solicitor search application with an Angular frontend and .NET 10 backend API.
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - [Node.js](https://nodejs.org/) (v18+) and npm
-- [Angular cli](https://angular.dev/installation) 21.2.7
+- [Angular CLI](https://angular.dev/installation) 21.2.7
 
 Verify your installations:
 
@@ -21,9 +21,10 @@ npm --version
 Both the API and client need to run simultaneously in separate terminals.
 
 ### 1. Start the API (Terminal 1)
-
+Enusre nuget packages are configured:
 ```bash
 cd InfoTrackApp.API
+dotnet restore
 dotnet run
 ```
 
