@@ -14,6 +14,7 @@ Verify your installations:
 dotnet --version   # should be 10.x.x
 node --version     # should be v18 or higher
 npm --version
+ng --version       # should be 21.2.7
 ```
 
 ## Running the App
@@ -21,7 +22,7 @@ npm --version
 Both the API and client need to run simultaneously in separate terminals.
 
 ### 1. Start the API (Terminal 1)
-Enusre nuget packages are configured:
+Ensure nuget packages are configured before running:
 ```bash
 cd InfoTrackApp.API
 dotnet restore
