@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SolicitorSearchService } from '../services/solicitor-search.service';
+import { Signal } from '@angular/core';
 
 const LOCATIONS = [
   'London', 'Birmingham', 'Leeds', 'Manchester',
@@ -21,8 +22,17 @@ export class InfoTrackSearchBox {
   selectedPracticeArea: string = PRACTICE_AREA[0];
   selectedLocation: string = LOCATIONS[0];
 
+  get loadingRequest(): Signal<boolean> {
+    return this._solicitorSearchService.loading;
+  }
+
+  get loadingRequestText(): string {
+    return this.loadingRequest() ? 'Loading...' : 'Search';
+  }
+
   constructor(private readonly _solicitorSearchService: SolicitorSearchService) {
   }
+
 
   onSearch(){
     const selectedPracticeAreaValue = this.selectedPracticeArea.toLowerCase();

@@ -1,7 +1,10 @@
+using InfoTrackApp.API.Database;
 using InfoTrackApp.API.Models;
 using InfoTrackApp.API.Services.Orchestrator;
 using InfoTrackApp.API.Services.Parsers;
+using InfoTrackApp.API.Services.Repositories;
 using InfoTrackApp.API.Services.Scrapers;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,9 @@ builder.Services.AddTransient<IHtmlParserService<SolicitorDto>, SolicitorHtmlPar
 builder.Services.AddTransient<IOrchestrationService, OrchestrationService>();
 
 builder.Services.AddSingleton<IHtmlParserFactory, HtmlParserFactory>();
+
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InfoTrackDb"));
+builder.Services.AddScoped<ISolicitorRecord, SolicitorRecordRepository>();
 
 var app = builder.Build();
 

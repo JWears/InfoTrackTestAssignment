@@ -6,39 +6,36 @@ namespace InfoTrackApp.API.Services.Parsers;
 public class SolicitorHtmlParserService : IHtmlParserService<SolicitorDto>
 {
     public List<SolicitorDto> ParseHtml(string html)
-    {
-        var solicitors = new List<SolicitorDto>();
-        const string resultItemPattern = """<div class="result-item[^"]*">(.*?)</div>\s*</div>""";
-        var resultMatches = Regex.Matches(html, resultItemPattern, RegexOptions.Singleline);
-        
-        foreach (Match resultMatch in resultMatches)
-        {
-            var block = resultMatch.Value;
-            
-            var title = ExtractTitle(block);
-            var address = ExtractAddress(block);
-            var phone = ExtractPhone(block);
-            var website = ExtractWebsite(block);
-            var rating = ExtractRating(block);
-            var numberOfReviews = ExtractReviewCount(block);
-            
-            var solicitor = new SolicitorDto(
-                Title: title,
-                Address: address,
-                Phone: phone,
-                Website: website,
-                Rating: rating,
-                NumberOfReviews: numberOfReviews
-            );
-            
-            solicitors.Add(solicitor);
-        }
-        
-        return solicitors;
-    }
+{
+    var solicitors = new List<SolicitorDto>();
     
-    private static string ExtractTitle(string block)
-    {
+    const string largeItemPattern = """<div class="result-item">(.*?)</ul>\s*</div>""";
+    
+    const string smallItemPattern = """<div class="result-item item-small">(.*?)</[pa]>\s*</div>""";
+    
+    var largeMatches = Regex.Matches(html, largeItemPattern, RegexOptions.Singleline);
+    var smallMatches = Regex.Matches(html, smallItemPattern, RegexOptions.Singleline);
+    
+    return largeMatches
+        .Concat(smallMatches)
+        .Select(match => ParseBlock(match.Value))
+        .ToList();
+}
+
+private static SolicitorDto ParseBlock(string block)
+{
+    return new SolicitorDto(
+        Title: ExtractTitle(block),
+        Address: ExtractAddress(block),
+        Phone: ExtractPhone(block),
+        Website: ExtractWebsite(block),
+        Rating: ExtractRating(block),
+        NumberOfReviews: ExtractReviewCount(block)
+    );
+}
+
+private static string ExtractTitle(string block)
+{
         var match = Regex.Match(block, """<span class="h2">([^<]+)""");
         return match.Success ? match.Groups[1].Value.Trim() : "";
     }
@@ -87,3 +84,20 @@ public class SolicitorHtmlParserService : IHtmlParserService<SolicitorDto>
         return match.Success ? int.Parse(match.Groups[1].Value) : null;
     }
 }
+
+/*
+							<div class="result-item item-small">
+   	<span class="h2">Fieldfisher<span class="rev-results"><div class="star-full rating-sml pad-top"></div><div class="star-full rating-sml pad-top"></div><div class="star-full rating-sml pad-top"></div><div class="star-full rating-sml pad-top"></div><div class="star-half rating-sml pad-top"></div>&nbsp;(44)</span></span>
+   	<a href="/fieldfisher.html" class="link-map"><i class="fa fa-map-marker" aria-hidden="true"></i><address>Riverbank House, 2 Swan Lane, London, &nbsp;EC4R 3TT</address></a>
+   	<a class="tel" style="padding:0px 0px 0px 20px;" rel="noindex" href="tel:+443304607000">+44 330 460 7000</a>
+   	
+   </div>
+                            
+                            
+   <div class="result-item item-small">
+   	<span class="h2">Barnes & Partners<span class="rev-results"><div class="star-full rating-sml pad-top"></div><div class="star-full rating-sml pad-top"></div><div class="star-full rating-sml pad-top"></div><div class="star-full rating-sml pad-top"></div><div class="star-half rating-sml pad-top"></div>&nbsp;(600)</span></span>
+   	<a href="/barnes-and-partners.html" class="link-map"><i class="fa fa-map-marker" aria-hidden="true"></i><address>Tottenham Lane, Crouch End, London&nbsp;N8 9DB</address></a>
+   	<a class="tel" style="padding:0px 0px 0px 20px;" rel="noindex" href="tel:02083406697">020 8340 6697</a>
+   	<p>Our one-to-one services allow us to be swift and efficient to help you move your sale or purchase along. For more information and our professional team will be happy to help.</p>
+   </div>
+   */
